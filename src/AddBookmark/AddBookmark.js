@@ -1,5 +1,4 @@
 import React, { Component } from  'react';
-import BookmarkList from '../BookmarkList/BookmarkList';
 import BookmarksContext from '../BookmarksContext';
 import config from '../config'
 import './AddBookmark.css';
