@@ -1,5 +1,6 @@
 import React from 'react';
 import Rating from '../Rating/Rating';
+import PropTypes from 'prop-types';
 import BookmarksContext from '../BookmarksContext';
 import config from '../config';
 import './BookmarkItem.css';
@@ -67,4 +68,27 @@ export default function BookmarkItem(props) {
 
 BookmarkItem.defaultProps = {
   onClickDelete: () => {},
+  rating: 1,
+  description: ''
+}
+
+BookmarkItem.propTypes = {
+  title: PropTypes.string.isRequired, 
+  url: (props, propName, componentName) => {
+    const prop = props[propName];
+
+    if(!prop) {
+      return new Error(`${propName} is required in ${componentName}. Validation Failed`);
+    }
+
+    if (typeof prop != 'string') {
+      return new Error(`Invalid prop, ${propName} is expected to be a string in ${componentName}. ${typeof prop} found.`);
+    }
+
+    if(prop < 1 || !prop.match(new RegExp(/^https?:\/\//))) {
+      return new Error(`Invalid prop, ${propName} must be min length 5 and begin http(s)://. ${prop} found.`);
+    }
+  },
+  rating: PropTypes.number,
+  description: PropTypes.string
 }
